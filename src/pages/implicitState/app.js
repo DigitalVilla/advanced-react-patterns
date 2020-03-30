@@ -17,15 +17,17 @@ class Tabs extends Component {
     }
 
     renderTabs() {
-        const { data } = this.props
+        const { data, disabled } = this.props
         return data.map((tab, i) => {
             const isActive = i === this.state.activeIndex
+            const isDisabled = disabled && parseInt(disabled) === i;
 
             return (
                 <button key={`${tab.label}-${i}`}
                     data-index={i}
                     className={`tab${isActive ? ' active' : ''}`}
                     onClick={this.selectTabIndex}
+                    disabled={isDisabled}
                 >
                     {tab.label}
                 </button>
@@ -40,15 +42,26 @@ class Tabs extends Component {
     }
 
 
+
+
     render() {
+        const {tabsOnBottom} = this.props;
+
+        const tabs = (
+            <div className="tabs">
+                {this.renderTabs()}
+            </div>
+        )
+
+        const panel = (
+            <div className="panel">
+                {this.renderPanels()}
+            </div>
+        )
+
         return (
             <div className="card">
-                <div className="tabs">
-                    {this.renderTabs()}
-                </div>
-                <div className="panel">
-                    {this.renderPanels()}
-                </div>
+                {tabsOnBottom ? [ panel, tabs ] : [tabs, panel]}
             </div>
         )
     }
@@ -59,25 +72,28 @@ export default class index extends Component {
         const tabData = [
             {
                 label: 'Rental',
-                content: "rental"
+                content: (<h2>Rental</h2>)
             },
             {
                 label: 'Hotels',
-                content: "Hotels"
+                content: (<h2>Hotels</h2>)
             },
             {
                 label: 'Flights',
-                content: "Flights"
+                content: (<h2>Flights</h2>)
             },
             {
                 label: 'Restaurnat',
-                content: "Restaurnat"
+                content: (<h2>Restaurant</h2>)
             },
         ]
 
         return (
             <div className="blue-bg">
-                <Tabs data={tabData}/>
+                <Tabs
+                disabled={1}
+                data={tabData}
+                tabsOnBottom={true}/>
             </div>
         )
     }

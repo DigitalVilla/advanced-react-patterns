@@ -2,23 +2,27 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    outline: none !important;
 }
 
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     // background: rgb(56, 140, 173);
+    color: rgb(65, 65, 65);
+  
 }
+$main-color: rgb(103, 178, 207);
 
 button {
     border: none;
     cursor: pointer;
-    padding: 1rem;
+    padding: 12px 12px 8px;
     font-size: 18px;
 }
 
 .blue-bg {
-    background: rgb(56, 140, 173);
+    background: $main-color;
     height: 100vh;
     width: 100vw;
 
@@ -30,8 +34,7 @@ button {
   }
 
   .card {
-    border-radius: 10px;
-    box-shadow: 5px 5px 50px #000;
+    box-shadow: 5px 5px 50px rgba(0, 0, 0, 0.329);
     width: 90vw;
     max-width: 900px;
     height: 80vh;
@@ -58,9 +61,22 @@ button {
             color: rgb(122, 122, 122);
             text-transform: uppercase;
             font-weight: bold;
+            border-bottom: 3px solid  transparent;
+            // height: 100%;
+
+            &.disabled,
+            &:disabled {
+                cursor: not-allowed;
+                color: rgb(207, 207, 207);
+                border-color:transparent;
+            }
             
             &.active {
-                color: rgb(56, 140, 173);
+                color: $main-color;
+                border-color:$main-color;
+            }
+            &:focus{
+                background: rgb(243, 243, 243);
             }
         }
     }
