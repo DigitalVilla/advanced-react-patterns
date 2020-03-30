@@ -64,11 +64,10 @@ button {
             border-bottom: 3px solid  transparent;
             // height: 100%;
 
-            &.disabled,
             &:disabled {
-                cursor: not-allowed;
                 color: rgb(207, 207, 207);
                 border-color:transparent;
+                cursor: not-allowed;
             }
             
             &.active {
