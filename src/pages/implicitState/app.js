@@ -1,4 +1,4 @@
-import React, { Component, Children } from 'react'
+import React, { Component } from 'react'
 import './sass/main.scss'
 
 class Card extends Component {
@@ -65,26 +65,65 @@ const Panels = (props) => {
 
 const Panel = (props) => (props.children)
 
+function DataCard({ data, disabled, tabsOnBottom }) {
+    const panels = data.map((tab, i) => (
+        <Panel key={i}> {tab.content}</Panel>
+    ))
+
+    const tabs = data.map((tab, i) => {
+        const dataset = Array.isArray(disabled) &&
+            disabled.includes(i) ? { isDisabled: true } : {}
+
+        return (
+            <Tab key={i} {...dataset}> {tab.label} </Tab>
+        )
+    })
+
+    return tabsOnBottom ? (
+        <Card>
+            <Panels>{panels}</Panels>
+            <Tabs>{tabs}</Tabs>
+        </Card>
+    ) :
+    (
+        <Card>
+            <Tabs>{tabs}</Tabs>
+            <Panels>{panels}</Panels>
+        </Card>
+    )
+}
+
+
 export default function index() {
+    const tabData = [
+        {
+            label: 'Rental',
+            content: "Rental"
+        },
+        {
+            label: 'Hotels',
+            content: "Hotels"
+        },
+        {
+            label: 'Flights',
+            content: "Flights"
+        },
+        {
+            label: 'Restaurnat',
+            content: "Restaurnat"
+        },
+        {
+            label: 'Events',
+            content: "Events"
+        },
+    ]
+
     return (
         <div className="blue-bg">
-            <Card>
-               
-                <Panels>
-                    <Panel><h2>Rentals</h2></Panel>
-                    <Panel><h2>Hotels</h2></Panel>
-                    <Panel><h2>Flights</h2></Panel>
-                    <Panel><h2>Restaurants</h2></Panel>
-                    <Panel><h2>Events</h2></Panel>
-                </Panels>
-                <Tabs>
-                    <Tab>Rentals</Tab>
-                    <Tab>Hotels</Tab>
-                    <Tab isDisabled>Flights</Tab>
-                    <Tab>Restaurants</Tab>
-                    <Tab isDisabled>Events</Tab>
-                </Tabs>
-            </Card>
+            <DataCard
+                data={tabData}
+                disabled={[1]}
+                tabsOnBottom={false} />
         </div>
     )
 }
